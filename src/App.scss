@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600,800&display=swap");
 
+$red: #e20001;
+$black: #191919;
+
 html,
 body {
   padding: 0;
@@ -26,6 +29,12 @@ body {
         text-transform: uppercase;
         font-weight: 500;
       }
+      h5 {
+        margin-top: 260px;
+        font-size: 24px;
+        font-weight: 600;
+        padding-right: 360px;
+      }
     }
   }
 }
@@ -43,7 +52,7 @@ header {
       font-weight: 700;
       font-size: 1rem;
       text-decoration: none;
-      color: #232323;
+      color: $black;
     }
     .menu {
       button {
@@ -66,7 +75,7 @@ header {
     height: 100%;
     width: 100%;
     .menu-color {
-      background: #000;
+      background: $black;
       top: 0;
       left: 0;
       right: 0;
@@ -75,17 +84,28 @@ header {
       height: 100%;
       width: 100%;
       z-index: -1;
-      &.overlay {
-        background: rgba(0, 0, 0, 0.45);
-        display: none;
-      }
     }
     .menu-content {
       position: relative;
-      background: #ff2000;
-      // background: url("https://images.unsplash.com/photo-1560621412-d51571af5aa2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2467&q=80");
+      background: $red;
       height: 100%;
       overflow: hidden;
+    }
+    .city {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: fixed;
+      height: 110%;
+      width: 110%;
+      opacity: 0;
+      background-size: cover;
+      background-size: auto;
+      background-repeat: no-repeat;
+      animation-name: backgroundEffect;
+      animation-duration: 30s;
+      animation-iteration-count: infinite;
     }
     .wrapper {
       position: relative;
@@ -105,11 +125,16 @@ header {
               font-size: 6rem;
               font-weight: 700;
               cursor: pointer;
+              height: 135px;
+              overflow: hidden;
+              position: relative;
+              width: 700px;
               a {
+                position: absolute;
                 color: #fff;
                 text-decoration: none;
                 &:hover {
-                  color: #282828;
+                  color: $black;
                 }
               }
             }
@@ -136,10 +161,39 @@ header {
         font-size: 0.8rem;
         font-weight: 600;
         span {
+          cursor: pointer;
+          &:first-child {
+            margin-left: 64px;
+          }
           font-weight: 400;
-          margin: 0 16px;
+          margin: 0 32px;
+          transition: 0.3s ease-in-out;
+          &:hover {
+            color: #fff;
+            background: $black;
+            padding: 8px 24px;
+            border-radius: 4px;
+          }
         }
       }
     }
+  }
+}
+
+@keyframes backgroundEffect {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 80% 10%;
+  }
+  50% {
+    background-position: 0 10%;
+  }
+  75% {
+    background-position: 60% 30%;
+  }
+  100% {
+    background-position: 0% 0%;
   }
 }
