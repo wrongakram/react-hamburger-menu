@@ -74,7 +74,7 @@ header {
     position: fixed;
     height: 100%;
     width: 100%;
-    .menu-color {
+    .menu-secondary-background-color {
       background: $black;
       top: 0;
       left: 0;
@@ -85,94 +85,93 @@ header {
       width: 100%;
       z-index: -1;
     }
-    .menu-content {
+    .menu-layer {
       position: relative;
       background: $red;
       height: 100%;
       overflow: hidden;
-    }
-    .city {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      position: fixed;
-      height: 110%;
-      width: 110%;
-      opacity: 0;
-      background-size: cover;
-      background-size: auto;
-      background-repeat: no-repeat;
-      animation-name: backgroundEffect;
-      animation-duration: 30s;
-      animation-iteration-count: infinite;
-    }
-    .wrapper {
-      position: relative;
-      .menu-links {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      .menu-city-background {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        background-size: cover;
+        background-repeat: no-repeat;
+        animation-name: backgroundEffect;
+        animation-duration: 30s;
+        animation-iteration-count: infinite;
+      }
+      .wrapper {
         position: relative;
-        top: 200px;
-        nav {
-          display: block;
-          ul {
-            margin: 0;
-            padding: 0;
-            li {
-              list-style: none;
-              font-size: 6rem;
-              font-weight: 700;
-              cursor: pointer;
-              height: 135px;
-              overflow: hidden;
-              position: relative;
-              width: 700px;
-              a {
-                position: absolute;
-                color: #fff;
-                text-decoration: none;
-                &:hover {
-                  color: $black;
+        .menu-links {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: relative;
+          top: 200px;
+          nav {
+            display: block;
+            ul {
+              margin: 0;
+              padding: 0;
+              li {
+                list-style: none;
+                font-size: 6rem;
+                font-weight: 700;
+                cursor: pointer;
+                height: 135px;
+                overflow: hidden;
+                position: relative;
+                width: 700px;
+                a {
+                  position: absolute;
+                  color: #fff;
+                  text-decoration: none;
+                  &:hover {
+                    color: $black;
+                  }
                 }
               }
             }
           }
-        }
-        .info {
-          color: #fff;
-          width: 300px;
-          h3 {
-            font-size: 1.2rem;
-            margin: 8px auto;
-          }
-          p {
-            margin: 0 auto;
-            font-size: 0.8rem;
-          }
-        }
-      }
-      .locations {
-        position: absolute;
-        bottom: -80px;
-        color: #fff;
-        margin-top: 16px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        span {
-          cursor: pointer;
-          &:first-child {
-            margin-left: 64px;
-          }
-          font-weight: 400;
-          margin: 0 32px;
-          transition: 0.3s ease-in-out;
-          &:hover {
+          .info {
             color: #fff;
-            background: $black;
-            padding: 8px 24px;
-            border-radius: 4px;
+            width: 300px;
+            h3 {
+              font-size: 1.2rem;
+              margin: 8px auto;
+            }
+            p {
+              margin: 0 auto;
+              font-size: 0.8rem;
+            }
+          }
+        }
+        .locations {
+          position: absolute;
+          bottom: -80px;
+          color: #fff;
+          margin-top: 16px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          span {
+            cursor: pointer;
+            &:first-child {
+              margin-left: 64px;
+            }
+            font-weight: 400;
+            margin: 0 32px;
+            transition: 0.3s ease-in-out;
+            &:hover {
+              color: #fff;
+              background: $black;
+              padding: 8px 24px;
+              border-radius: 4px;
+            }
           }
         }
       }
@@ -185,13 +184,13 @@ header {
     background-position: 0% 0%;
   }
   25% {
-    background-position: 80% 10%;
+    background-position: 40% 10%;
   }
   50% {
     background-position: 0 10%;
   }
   75% {
-    background-position: 60% 30%;
+    background-position: 10% 40%;
   }
   100% {
     background-position: 0% 0%;

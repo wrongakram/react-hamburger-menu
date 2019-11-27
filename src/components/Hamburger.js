@@ -17,6 +17,7 @@ const cities = [
 ];
 
 const Hamburger = ({ state }) => {
+  // Create varibles of our dom nodes
   let menuLayer = useRef(null);
   let reveal1 = useRef(null);
   let reveal2 = useRef(null);
@@ -27,8 +28,10 @@ const Hamburger = ({ state }) => {
   let info = useRef(null);
 
   useEffect(() => {
+    // If the menu is open and we click the menu button to close it.
     if (state.clicked === false) {
-      gsap.to([reveal2, reveal1], 0.8, {
+      gsap.to([reveal2, reveal1], {
+        duration: 0.8,
         height: 0,
         ease: "power3.inOut",
         stagger: {
@@ -36,7 +39,7 @@ const Hamburger = ({ state }) => {
         }
       });
       gsap.to(menuLayer, { duration: 1, css: { display: "none" } });
-      console.log(2);
+      // If menu is closed and we want to open it.
     } else if (
       state.clicked === true ||
       (state.clicked === true && state.initial === null)
@@ -50,12 +53,12 @@ const Hamburger = ({ state }) => {
       staggerReveal(reveal1, reveal2);
       fadeInUp(info);
       staggerText(line1, line2, line3);
-      console.log(3);
     }
   }, [state]);
 
   const staggerReveal = (node1, node2) => {
-    gsap.from([node1, node2], 0.8, {
+    gsap.from([node1, node2], {
+      duration: 0.8,
       height: 0,
       transformOrigin: "right top",
       skewY: 2,
@@ -67,7 +70,8 @@ const Hamburger = ({ state }) => {
   };
 
   const staggerText = (node1, node2, node3) => {
-    gsap.from([node1, node2, node3], 0.8, {
+    gsap.from([node1, node2, node3], {
+      duration: 0.8,
       y: 100,
       delay: 0.1,
       ease: "power3.inOut",
@@ -77,6 +81,7 @@ const Hamburger = ({ state }) => {
     });
   };
 
+  // Fade up for the additonal info on our menu
   const fadeInUp = node => {
     gsap.from(node, {
       y: 60,
@@ -87,50 +92,64 @@ const Hamburger = ({ state }) => {
     });
   };
 
+  // Hover on the link
   const handleHover = e => {
-    gsap.to(e.target, 0.4, {
+    gsap.to(e.target, {
+      duration: 0.3,
       y: 3,
       skewX: 4,
-      ease: "InOut"
+      ease: "power1.inOut"
     });
   };
 
+  // Hover off the link
   const handleHoverExit = e => {
-    gsap.to(e.target, 0.4, {
+    gsap.to(e.target, {
+      duration: 0.3,
       y: -3,
       skewX: 0,
-      ease: "InOut"
+      ease: "power1.inOut"
     });
   };
 
+  // adds city image once you hover on
   const handleCity = city => {
-    gsap.to(cityBackground, 0, {
+    gsap.to(cityBackground, {
+      duration: 0,
       background: `url(${city}) center center`
     });
-    gsap.to(cityBackground, 0.4, {
-      opacity: 1
+    gsap.to(cityBackground, {
+      duration: 0.4,
+      opacity: 1,
+      ease: "power3.inOut"
     });
-    gsap.from(cityBackground, 0.4, {
-      skewX: 2,
-      transformOrigin: "center bottom"
+    gsap.from(cityBackground, {
+      duration: 0.4,
+      skewY: 2,
+      transformOrigin: "right top"
     });
   };
 
+  // Removes the city image once you hover off
   const handleCityReturn = () => {
-    gsap.to(cityBackground, 0.4, {
-      opacity: 0,
-      skewY: 0
+    gsap.to(cityBackground, {
+      duration: 0.4,
+      opacity: 0
     });
   };
 
   return (
-    <div ref={el => (menuLayer = el)} className="hamburger-menu">
-      <div ref={el => (reveal1 = el)} className="menu-color"></div>
-      <div ref={el => (reveal2 = el)} className="menu-content">
-        <div ref={el => (cityBackground = el)} className="city"></div>
-        <div className="container">
-          <div className="wrapper">
-            <div className="menu-links">
+    <div ref={el => (menuLayer = el)} className='hamburger-menu'>
+      <div
+        ref={el => (reveal1 = el)}
+        className='menu-secondary-background-color'></div>
+      <div ref={el => (reveal2 = el)} className='menu-layer'>
+        <div
+          ref={el => (cityBackground = el)}
+          className='menu-city-background'></div>
+        <div className='container'>
+          <div className='wrapper'>
+            <div className='menu-links'>
               <nav>
                 <ul>
                   <li>
@@ -138,8 +157,7 @@ const Hamburger = ({ state }) => {
                       onMouseEnter={e => handleHover(e)}
                       onMouseOut={e => handleHoverExit(e)}
                       ref={el => (line1 = el)}
-                      to="/opportunities"
-                    >
+                      to='/opportunities'>
                       Opportunities
                     </Link>
                   </li>
@@ -148,8 +166,7 @@ const Hamburger = ({ state }) => {
                       onMouseEnter={e => handleHover(e)}
                       onMouseOut={e => handleHoverExit(e)}
                       ref={el => (line2 = el)}
-                      to="/solutions"
-                    >
+                      to='/solutions'>
                       Solutions
                     </Link>
                   </li>
@@ -158,14 +175,13 @@ const Hamburger = ({ state }) => {
                       onMouseEnter={e => handleHover(e)}
                       onMouseOut={e => handleHoverExit(e)}
                       ref={el => (line3 = el)}
-                      to="/contact-us"
-                    >
+                      to='/contact-us'>
                       Contact us
                     </Link>
                   </li>
                 </ul>
               </nav>
-              <div ref={el => (info = el)} className="info">
+              <div ref={el => (info = el)} className='info'>
                 <h3>Our Promise</h3>
                 <p>
                   The passage experienced a surge in popularity during the 1960s
@@ -174,14 +190,14 @@ const Hamburger = ({ state }) => {
                   their software.
                 </p>
               </div>
-              <div className="locations">
+              <div className='locations'>
                 Locations:
+                {/* Returning the list of cities */}
                 {cities.map(el => (
                   <span
                     key={el.name}
                     onMouseEnter={() => handleCity(el.image)}
-                    onMouseOut={handleCityReturn}
-                  >
+                    onMouseOut={handleCityReturn}>
                     {el.name}
                   </span>
                 ))}
