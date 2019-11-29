@@ -2,6 +2,17 @@ import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 
+import {
+  staggerText,
+  staggerReveal,
+  fadeInUp,
+  handleHover,
+  handleHoverExit,
+  handleCityReturn,
+  handleCity,
+  staggerRevealClose
+} from "./Animations";
+
 import dallas from "../images/dallas.webp";
 import austin from "../images/austin.webp";
 import newyork from "../images/newyork.webp";
@@ -30,21 +41,18 @@ const Hamburger = ({ state }) => {
   useEffect(() => {
     // If the menu is open and we click the menu button to close it.
     if (state.clicked === false) {
-      gsap.to([reveal2, reveal1], {
-        duration: 0.8,
-        height: 0,
-        ease: "power3.inOut",
-        stagger: {
-          amount: 0.07
-        }
-      });
-      gsap.to(menuLayer, { duration: 1, css: { display: "none" } });
       // If menu is closed and we want to open it.
+
+      staggerRevealClose(reveal2, reveal1);
+      // Set menu to display none
+      gsap.to(menuLayer, { duration: 1, css: { display: "none" } });
     } else if (
       state.clicked === true ||
       (state.clicked === true && state.initial === null)
     ) {
+      // Set menu to display block
       gsap.to(menuLayer, { duration: 0, css: { display: "block" } });
+      //Allow menu to have height of 100%
       gsap.to([reveal1, reveal2], {
         duration: 0,
         opacity: 1,
@@ -55,88 +63,6 @@ const Hamburger = ({ state }) => {
       staggerText(line1, line2, line3);
     }
   }, [state]);
-
-  const staggerReveal = (node1, node2) => {
-    gsap.from([node1, node2], {
-      duration: 0.8,
-      height: 0,
-      transformOrigin: "right top",
-      skewY: 2,
-      ease: "power3.inOut",
-      stagger: {
-        amount: 0.1
-      }
-    });
-  };
-
-  const staggerText = (node1, node2, node3) => {
-    gsap.from([node1, node2, node3], {
-      duration: 0.8,
-      y: 100,
-      delay: 0.1,
-      ease: "power3.inOut",
-      stagger: {
-        amount: 0.3
-      }
-    });
-  };
-
-  // Fade up for the additonal info on our menu
-  const fadeInUp = node => {
-    gsap.from(node, {
-      y: 60,
-      duration: 1,
-      delay: 0.2,
-      opacity: 0,
-      ease: "power3.inOut"
-    });
-  };
-
-  // Hover on the link
-  const handleHover = e => {
-    gsap.to(e.target, {
-      duration: 0.3,
-      y: 3,
-      skewX: 4,
-      ease: "power1.inOut"
-    });
-  };
-
-  // Hover off the link
-  const handleHoverExit = e => {
-    gsap.to(e.target, {
-      duration: 0.3,
-      y: -3,
-      skewX: 0,
-      ease: "power1.inOut"
-    });
-  };
-
-  // adds city image once you hover on
-  const handleCity = city => {
-    gsap.to(cityBackground, {
-      duration: 0,
-      background: `url(${city}) center center`
-    });
-    gsap.to(cityBackground, {
-      duration: 0.4,
-      opacity: 1,
-      ease: "power3.inOut"
-    });
-    gsap.from(cityBackground, {
-      duration: 0.4,
-      skewY: 2,
-      transformOrigin: "right top"
-    });
-  };
-
-  // Removes the city image once you hover off
-  const handleCityReturn = () => {
-    gsap.to(cityBackground, {
-      duration: 0.4,
-      opacity: 0
-    });
-  };
 
   return (
     <div ref={el => (menuLayer = el)} className='hamburger-menu'>
@@ -196,8 +122,8 @@ const Hamburger = ({ state }) => {
                 {cities.map(el => (
                   <span
                     key={el.name}
-                    onMouseEnter={() => handleCity(el.image)}
-                    onMouseOut={handleCityReturn}>
+                    onMouseEnter={() => handleCity(el.image, cityBackground)}
+                    onMouseOut={() => handleCityReturn(cityBackground)}>
                     {el.name}
                   </span>
                 ))}
